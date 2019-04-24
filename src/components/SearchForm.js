@@ -37,7 +37,7 @@ const SearchForm = props => {
 
   return (
     <Paper className={classes.root} elevation={1}>
-      <InputBase className={classes.input} placeholder="Search Google Maps" />
+      <InputBase className={classes.input} placeholder="Search Recipe" />
       <IconButton
         className={classes.iconButton}
         aria-label="Search"
