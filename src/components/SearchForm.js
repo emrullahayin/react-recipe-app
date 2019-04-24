@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+
+import axios from "axios";
+
 import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
@@ -27,13 +30,20 @@ const SearchForm = props => {
   const APP_ID = "1d018658";
   const APP_KEY = "eefe424911982c21e5f6506847fff4fe";
 
-  const exampleReq = `https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`;
-
-  const [counter, setCounter] = useState(0);
-
   useEffect(() => {
-    console.log("counter:", counter);
-  });
+    getRecipes();
+  }, []);
+
+  const getRecipes = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`
+      );
+      console.log(response.data);
+    } catch (err) {
+      console.log("err :", err);
+    }
+  };
 
   return (
     <Paper className={classes.root} elevation={1}>
@@ -42,7 +52,6 @@ const SearchForm = props => {
         className={classes.iconButton}
         aria-label="Search"
         color="primary"
-        onClick={() => setCounter(counter + 1)}
       >
         <SearchIcon />
       </IconButton>
