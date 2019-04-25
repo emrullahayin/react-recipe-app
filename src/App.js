@@ -31,12 +31,12 @@ const styles = {
 
 const App = props => {
   const { classes } = props;
-  
+
   const APP_ID = "1d018658";
   const APP_KEY = "eefe424911982c21e5f6506847fff4fe";
 
   const [recipes, setRecipes] = useState([]);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("kebap");
 
   const updateSearch = e => {
     setSearch(e.target.value);
@@ -44,12 +44,12 @@ const App = props => {
 
   useEffect(() => {
     getRecipes();
-  }, []);
+  });
 
   const getRecipes = async () => {
     try {
       const response = await axios.get(
-        `https://api.edamam.com/search?q=water&app_id=${APP_ID}&app_key=${APP_KEY}`
+        `https://api.edamam.com/search?q=${search}&app_id=${APP_ID}&app_key=${APP_KEY}`
       );
       const data = response.data;
       setRecipes(data.hits);
@@ -57,6 +57,7 @@ const App = props => {
       console.log("err :", err);
     }
   };
+
   return (
     <div className="App">
       <Paper className={classes.root} elevation={1}>
@@ -70,6 +71,7 @@ const App = props => {
           className={classes.iconButton}
           aria-label="Search"
           color="primary"
+          onClick={getRecipes}
         >
           <SearchIcon />
         </IconButton>
