@@ -5,6 +5,7 @@ import SearchForm from "./components/SearchForm";
 import Recipe from "./components/Recipe";
 
 import GridList from "@material-ui/core/GridList";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const App = props => {
   const APP_ID = "1d018658";
@@ -23,7 +24,6 @@ const App = props => {
       );
       const data = response.data;
       setRecipes(data.hits);
-      console.log("data.hits", data.hits);
     } catch (err) {
       console.log("err :", err);
     }
@@ -32,15 +32,21 @@ const App = props => {
     <div className="App">
       <SearchForm />
       <GridList cellHeight={180} style={{ marginTop: 20 }}>
-        {recipes.map((repice, index) => (
-          <Recipe
-            key={index}
-            title={repice.recipe.label}
-            subtitle={repice.recipe.source}
-            image={repice.recipe.image}
-            shareLink={repice.recipe.shareAs}
-          />
-        ))}
+        {recipes.length === 0 ? (
+          <div>
+            <CircularProgress style={{ margin: "0 auto" }} color="secondary" />
+          </div>
+        ) : (
+          recipes.map((repice, index) => (
+            <Recipe
+              key={index}
+              title={repice.recipe.label}
+              subtitle={repice.recipe.source}
+              image={repice.recipe.image}
+              shareLink={repice.recipe.shareAs}
+            />
+          ))
+        )}
       </GridList>
     </div>
   );
