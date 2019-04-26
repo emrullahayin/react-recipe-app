@@ -44,7 +44,7 @@ const App = props => {
 
   useEffect(() => {
     getRecipes();
-  },[]);
+  }, []);
 
   const getRecipes = async () => {
     try {
